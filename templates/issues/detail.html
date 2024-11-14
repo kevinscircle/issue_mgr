@@ -12,7 +12,7 @@
 <p>{{ post.description}}</p>
 {% if user.is_authenticated %}
     {% if user == issue.reporter %}
-    <a href="{% url 'edit' issue.id %}" class="btn btn-primary">Edit</a>
+    <a href="{% url 'update' issue.id %}" class="btn btn-primary">Edit</a>
     <a href="{% url 'delete' issue.id %}" class="btn btn-primary">Delete</a>
     {% endif %}
 {% endif %}

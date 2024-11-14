@@ -31,4 +31,4 @@ class Post(models.Model):
         return self.title
 
 
-
+# is it create or delete ? for post 

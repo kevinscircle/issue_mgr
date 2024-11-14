@@ -15,7 +15,7 @@ class CustomUserAdmin(UserAdmin):
     model =CustomUser
     add_form = CustomUserCreationForm
     form = CustomUserChangeForm
-    add_fieldsets =  (
+    add_fieldsets =  UserAdmin.add_fieldsets + (
         (
             None, { 
                 'classes': ('wide'),
@@ -28,3 +28,6 @@ class CustomUserAdmin(UserAdmin):
     )
     
 admin.site.register(CustomUser, CustomUserAdmin)
+
+
+# what is the purpose of User.Admin plus add_fieldsets 

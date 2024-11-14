@@ -22,7 +22,7 @@ class PostListView(LoginRequiredMixin, ListView):
         context['post_list'] = (
             Post.objects
             .filter(status=Status.objects.get(name="published"))
-            .order_by('created_on').reverse()
+            .order_by('created_at').reverse()
         )
         return context
 
@@ -35,7 +35,7 @@ class DraftPostListView(LoginRequiredMixin, ListView):
         context['post_list'] = (
             Post.objects
             .filter(status=Status.objects.get(name="draft"))
-            .order_by('created_on').reverse()
+            .order_by('created_at').reverse()
         )
         return context
 
@@ -48,7 +48,7 @@ class ArchivedPostListView(LoginRequiredMixin, ListView):
         context['post_list'] = (
             Post.objects
             .filter(status=Status.objects.get(name="archived"))
-            .order_by('created_on').reverse()
+            .order_by('created_at').reverse()
             )
         return context
     
@@ -86,6 +86,10 @@ class PostUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
         form.instance.author = self.request.user
         return super().form_valid(form)
     
+    # def test_func(self):
+    #     post = self.get_object()
+    #     return self. request. user == post.author
+    
     
 class PostDeleteView(LoginRequiredMixin, DeleteView):
     model = Post
@@ -95,4 +99,10 @@ class PostDeleteView(LoginRequiredMixin, DeleteView):
     def test_func(self):
         post = self.get_object()
         return self.request.user == post.author
+    
+
+
+    # not sure if def in post delete vieew should be add
+    # in update which def 
+
 

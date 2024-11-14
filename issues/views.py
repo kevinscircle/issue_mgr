@@ -31,21 +31,21 @@ class IssueListView(LoginRequiredMixin, ListView):
         context["to_do_list"] = (
             Issue.objects
             .filter(status=to_do)
-            .filter(reporter=team_po[0])
+            # .filter(reporter=team_po[0])
             .order_by("created_on").reverse()
         )
         in_progress = Status.objects.get(name="in progress")
         context["in_progress_list"] = (
             Issue.objects
             .filter(status=in_progress)
-            .filter(reporter=team_po[0])
+            # .filter(reporter=team_po[0])
             .order_by("created_on").reverse()
         )
         done = Status.objects.get(name="done")
         context["done_list"] = (
             Issue.objects
             .filter(status=done)
-            .filter(reporter=team_po[0])
+            # .filter(reporter=team_po[0])
             .order_by("created_on").reverse()
             )
         return context
@@ -78,7 +78,7 @@ class IssueUpdateView(LoginRequiredMixin, UserPassesTestMixin,  UpdateView):
         po_role = Role.objects.get(name="product owner")
         product_owner = (
             CustomUser.objects
-            .filter(role=po_role)
+            .filter(roles=po_role)
             .filter(team=self.request.user.team)
         )
         if product_owner:
@@ -89,5 +89,19 @@ class IssueUpdateView(LoginRequiredMixin, UserPassesTestMixin,  UpdateView):
 class IssueDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     model = Issue
     template_name = "issues/delete.html"
+
+    def test_funct(self):
+        po_role = Role.objects.get(name="product owner")
+        product_owner = (
+            CustomUser.objects
+            .filter(role=po_role)
+            .filter(team=self.request.user.team)
+        )
+        if product_owner:
+            issue = self.get.object()
+            return issue.reporter == product_owner[0]
+        return False
+
+    success_url = reverse_lazy('issues:list')
 
 

@@ -1,24 +1,74 @@
-{% extends 'base.html' %}
-
-
-
-{% block title %}Issues{% endblock title %}
-
-
+{% extends 'base.html' %} {% block title %}Issues{% endblock title %} 
 {% block content %}
-<h1>Issues</h1>
-{% for issue in to_do_list %}
+<div class="container text-center">
+  <div class="row align-items-start">
+    <div class="col">
+      <h1>To Do</h1>
+      {% for issue in to_do_list %}
+      <div class="card" style="width: 18rem">
+        <div class="card-body">
+          <h5 class="card-title">{{ issue.assignee }}</h5>
+          <h6 class="card-subtitle mb-2 text-body-secondary">
+            {{ issue.status}}
+          </h6>
+          <small>Created on: {{ issue.created_on}}</small>
+          <p class="card-text">{{ issue.summary|truncatechars:128 }}</p>
+          <a href="{% url 'detail' issue.id %}" class="card-link"
+            >Continue reading...</a
+          >
+        </div>
+      </div>
+      {% endfor %}
+    </div>
 
-<div class="card" style="width: 18rem;">
-    <div class="card-body">
-      <h5 class="card-title">{{ issue.assignee }}</h5>
-      <h6 class="card-subtitle mb-2 text-body-secondary">{{ issue.status}}</h6>
-      <small>Created on: {{ issue.created_on}}</small>
-      <p class="card-text">{{ issue.summary|truncatechars:128 }}</p>
-      <a href="{% url 'detail' issue.id %}" class="card-link">Continue reading...</a>
+    <div class="col">
+      <h1>In Progress</h1>
+      {% for issue in in_progress_list %}
+      <div class="card" style="width: 18rem">
+        <div class="card-body">
+          <h5 class="card-title">{{ issue.assignee }}</h5>
+          <h6 class="card-subtitle mb-2 text-body-secondary">
+            {{ issue.status}}
+          </h6>
+          <small>Created on: {{ issue.created_on}}</small>
+          <p class="card-text">{{ issue.summary|truncatechars:128 }}</p>
+          <a href="{% url 'detail' issue.id %}" class="card-link"
+            >Continue reading...</a
+          >
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+
+    <div class="col">
+      <h1>Done</h1>
+      {% for issue in done_list %}
+      <div class="card" style="width: 18rem">
+        <div class="card-body">
+          <h5 class="card-title">{{ issue.assignee }}</h5>
+          <h6 class="card-subtitle mb-2 text-body-secondary">
+            {{ issue.status}}
+          </h6>
+          <small>Created on: {{ issue.created_on}}</small>
+          <p class="card-text">{{ issue.summary|truncatechars:128 }}</p>
+          <a href="{% url 'detail' issue.id %}" class="card-link"
+            >Continue reading...</a
+          >
+        </div>
+      </div>
+      {% endfor %}
     </div>
   </div>
-{% endfor %}
+</div>
 {% endblock content %}
 
 <!-- summary,description, reporter, assignee, priority,status,created_on-->
+
+<!-- can you explain the for loop with issue in to_do_list 
+ where the list came from  
+ 
+ 
+ what is truncatechars  with | ? 
+ 
+ 
+ -->
