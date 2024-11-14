@@ -7,6 +7,7 @@ from .views import (
     IssueCreateView
     )
 
+# step 2 mc3 
 urlpatterns = [
     path("issues/", IssueListView.as_view(), name="list"),
     path("<int:pk>/", IssueDetailView.as_view(), name="detail"),

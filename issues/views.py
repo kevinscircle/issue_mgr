@@ -1,7 +1,7 @@
 from django.views.generic import (
     ListView, 
     CreateView, 
-    DetailView, 
+    DetailView,   
     UpdateView, 
     DeleteView,
 )
@@ -25,7 +25,7 @@ class IssueListView(LoginRequiredMixin, ListView):
         team_po = (
             CustomUser.objects
             .filter(team=user.team)
-            .filter(role=role)
+            .filter(roles=role)
         )
         to_do = Status.objects.get(name="to do")
         context["to_do_list"] = (
@@ -50,7 +50,7 @@ class IssueListView(LoginRequiredMixin, ListView):
             )
         return context
 
-class IssueDetailView(LoginRequiredMixin, DeleteView):
+class IssueDetailView(LoginRequiredMixin, DetailView):
     model = Issue
     template_name = 'issues/detail.html'
 
