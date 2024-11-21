@@ -1,3 +1,7 @@
 body {
     background-color: red !important;
 }
+
+.red {
+    background-color: red;
+}
